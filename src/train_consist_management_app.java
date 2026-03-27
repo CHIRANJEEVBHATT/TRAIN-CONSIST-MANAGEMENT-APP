@@ -1,44 +1,48 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-// Bogie Class
+// Reuse Bogie class from UC7
 class Bogie {
     String name;
     int capacity;
 
-    // Constructor
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    // Display method
     @Override
     public String toString() {
         return name + " (Capacity: " + capacity + ")";
     }
 }
 
-public class TrainConsistApp {
+public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create List of Bogies
+        // Create list of bogies (same as UC7)
         List<Bogie> bogies = new ArrayList<>();
-
-        // Add Passenger Bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
 
-        // Sort by Capacity (Ascending)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        // Filter bogies with capacity > 60 using Stream
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        // Display Sorted Bogies
-        System.out.println("\nBogies Sorted by Capacity (Ascending):");
+        // Display filtered bogies
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filteredBogies) {
+            System.out.println(b);
+        }
+
+        // Show original list (to prove it is unchanged)
+        System.out.println("\nOriginal Bogie List (Unchanged):");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
